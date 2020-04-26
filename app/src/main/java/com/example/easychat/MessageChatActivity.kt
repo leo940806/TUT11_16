@@ -51,10 +51,9 @@ class MessageChatActivity : AppCompatActivity() {
         supportActionBar!!.title = ""
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener{
-            //@@@@@@@@@@@@@@Please help check this button@@@@@@@@@@@@@
-//            val intent = Intent(this@MessageChatActivity, WelcomeActivity::class.java)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-//            startActivity(intent)
+            val intent = Intent(this@MessageChatActivity, WelcomeActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
             finish()
         }
 
@@ -100,7 +99,6 @@ class MessageChatActivity : AppCompatActivity() {
         }
 
         attact_image_file_btn.setOnClickListener {
-            //@@@@@@@@@@@@@@Please help check this button@@@@@@@@@@@@@
             notify = true
             val intent = Intent()
             intent.action = Intent.ACTION_GET_CONTENT
@@ -287,6 +285,7 @@ class MessageChatActivity : AppCompatActivity() {
                                 })
                             }
                         }
+                    progressBar.dismiss()
                 }
             }
         }
@@ -351,7 +350,9 @@ class MessageChatActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
 
-        reference!!.removeEventListener((seenListener!!))
+        if(reference != null) {
+            reference!!.removeEventListener((seenListener!!))
+        }
     }
 
 }
