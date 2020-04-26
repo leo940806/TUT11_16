@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.easychat.AdapterClasses.UserAdapter
 import com.example.easychat.ModelClasses.Chatlist
 import com.example.easychat.ModelClasses.Users
+import com.example.easychat.Notifications.Token
 
 import com.example.easychat.R
 import com.google.firebase.auth.FirebaseAuth
@@ -18,6 +19,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.iid.FirebaseInstanceId
 
 /**
  * A simple [Fragment] subclass.
@@ -62,9 +64,17 @@ class ChatsFragment : Fragment() {
             }
         })
 
+        updateToken(FirebaseInstanceId.getInstance().token)
 
         return view
 
+    }
+
+    private fun updateToken(token: String?)
+    {
+        val ref = FirebaseDatabase.getInstance().reference.child("Tokens")
+        val token1 = Token(token!!)
+        ref.child(firebaseUser!!.uid).setValue(token1)
     }
 
     private fun retrieveChatList(){
